@@ -1,6 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 import pprint
+import string
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -21,6 +22,8 @@ for article in articles:
     strength_numeric = float(strength[0:4]) / float(100)
     if(strength_numeric != 0):
         alcohol_price = price_numeric / strength_numeric
+        article.append(ET.Element('AlkoholPris'))
+        article.find('AlkoholPris').text = alcohol_price
     else:
         print('No alcohol?! WTF?!')
     print('Product name: ', product_name, ', Price: ', price, 'Alcohol price: ', alcohol_price)
