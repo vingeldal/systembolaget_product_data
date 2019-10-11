@@ -1,5 +1,6 @@
 import requests
 import xml.etree.ElementTree as ET
+import xml.dom.minidom
 
 URL = "https://www.systembolaget.se/api/assortment/products/xml"
 
@@ -10,5 +11,8 @@ with open('feed.xml', 'wb') as file:
 tree = ET.parse('feed.xml')
 root = tree.getroot()
 
-for child in root:
-    print(child.tag, child.attrib)
+articles = root.findall('artikel')
+
+for article in articles:
+    price = article.find('PrisPerLiter')
+    print(price.text)
